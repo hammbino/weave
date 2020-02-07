@@ -63,22 +63,16 @@ public class Main {
         }
 
         //verify the number of cases given in the file matches the size of the list
-        if (totalCases != pancakes.size()) {
+        if (totalCases != pancakes.size() -1) {
+            System.out.println("Array size: " + pancakes.size() + " Total cases: " + totalCases);
             System.out.println("Error: Number of cases does not match expected");
             System.exit(8);     // TERMINATE THE PROGRAM
         }
 
-        //verify the line only contains character "-" and "+"
-        //if it does calculate the number of flips
-        //otherwise output and error message
-        for (int i = 0; i < pancakes.size(); i++) {
-
-            if (pancakes.get(i).matches("//[-+]+")) {
-                numFlips = countFlips(pancakes.get(i));
-                printMessage(i, numFlips);
-            } else {
-                printBadDataMessage(i);
-            }
+        //calculate the number of flips and output the answer
+        for (int i = 1; i < pancakes.size(); i++) {
+            numFlips = countFlips(pancakes.get(i));
+            printMessage(i, numFlips);
         }
     }
 
@@ -88,12 +82,11 @@ public class Main {
     private static int countFlips(String s) {
         char[] panCakes = s.toCharArray();
         int count = 0;
-        for (int i = 0; i < s.length() - 1; i++) {
+        for (int i = 0; i < panCakes.length - 1; i++) {
             if (panCakes[i] != panCakes[i + 1])
                 count++;
         }
-
-        if (panCakes[s.length() - 1] == '-') {
+        if (panCakes[panCakes.length - 1] != '+') {
             count++;
         }
         return count;
@@ -106,6 +99,6 @@ public class Main {
 
     //This method outputs the case number and number of flips when a case contains bad values
     private static void printMessage(int caseNum, int numFlips){
-        System.out.println("Case #" + caseNum + ":" + numFlips);
+        System.out.println("Case #" + caseNum + ": " + numFlips);
     }
 }
